@@ -916,6 +916,12 @@ Status impala::SetQueryOption(const string& key, const string& value,
         query_options->__set_broadcast_bytes_limit(broadcast_bytes_limit);
         break;
       }
+      case TImpalaQueryOptions::SCAN_NUM_HDFS_FILES_LIMIT: {
+        //        Parse the scan_num_hdfs_files_limit limit and validate it
+        int64_t scan_num_hdfs_files_limit;
+        RETURN_IF_ERROR(ParseMemValue(
+            value, "query scan num hdfs files limit", &scan_num_hdfs_files_limit));
+      }
       default:
         if (IsRemovedQueryOption(key)) {
           LOG(WARNING) << "Ignoring attempt to set removed query option '" << key << "'";

@@ -1532,7 +1532,6 @@ public class Frontend {
 
     try {
       TQueryOptions queryOptions = queryCtx.client_request.query_options;
-      analysisResult.getAnalyzer().checkScanNumHdfsFilesLimit();
       if (analysisResult.isCatalogOp()) {
         result.stmt_type = TStmtType.DDL;
         createCatalogOpRequest(analysisResult, result);
@@ -1622,6 +1621,7 @@ public class Frontend {
         result.query_exec_request.stmt_type = result.stmt_type;
         // fill in the metadata
         result.setResult_set_metadata(createQueryResultSetMetadata(analysisResult));
+        analysisResult.getAnalyzer().checkScanNumHdfsFilesLimit();
       } else if (analysisResult.isInsertStmt() ||
           analysisResult.isCreateTableAsSelectStmt()) {
         // For CTAS the overall TExecRequest statement type is DDL, but the

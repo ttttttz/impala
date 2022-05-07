@@ -463,7 +463,6 @@ public class AnalysisContext {
     // to analyze the first time may take 10 minutes for rewrites.
     analysisResult_.analyzer_.checkStmtExprLimit();
     boolean isExplain = analysisResult_.isExplainStmt();
-    analysisResult_.analyzer_.checkScanNumHdfsFilesLimit();
 
     // Apply expr and subquery rewrites.
     boolean reAnalyze = false;

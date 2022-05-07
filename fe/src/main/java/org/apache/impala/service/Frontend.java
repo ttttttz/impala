@@ -1532,6 +1532,7 @@ public class Frontend {
 
     try {
       TQueryOptions queryOptions = queryCtx.client_request.query_options;
+      analysisResult.getAnalyzer().checkScanNumHdfsFilesLimit();
       if (analysisResult.isCatalogOp()) {
         result.stmt_type = TStmtType.DDL;
         createCatalogOpRequest(analysisResult, result);

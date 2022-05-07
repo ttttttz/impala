@@ -3070,7 +3070,7 @@ public class Analyzer {
   public long getScanNumHdfsFiles() { return globalState_.scanNumHdfsFiles_; }
   public void checkScanNumHdfsFilesLimit() throws AnalysisException {
     long scanNumHdfsFilesLimit = getQueryOptions().getScan_num_hdfs_files_limit();
-    if (globalState_.scanNumHdfsFiles_ > scanNumHdfsFilesLimit) {
+    if (scanNumHdfsFilesLimit > 0 && globalState_.scanNumHdfsFiles_ > scanNumHdfsFilesLimit) {
       String errorStr = String.format("Exceeded the num of scan hdfs files limit (%d)\n" +
               "Scanning has %d files.", scanNumHdfsFilesLimit, getScanNumHdfsFiles());
       throw new AnalysisException(errorStr);

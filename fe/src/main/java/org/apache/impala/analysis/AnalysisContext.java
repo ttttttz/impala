@@ -462,8 +462,8 @@ public class AnalysisContext {
     // expensive with large expression trees. For example, a SQL that takes a few seconds
     // to analyze the first time may take 10 minutes for rewrites.
     analysisResult_.analyzer_.checkStmtExprLimit();
-    analysisResult_.analyzer_.checkScanNumHdfsFilesLimit();
     boolean isExplain = analysisResult_.isExplainStmt();
+    analysisResult_.analyzer_.checkScanNumHdfsFilesLimit();
 
     // Apply expr and subquery rewrites.
     boolean reAnalyze = false;

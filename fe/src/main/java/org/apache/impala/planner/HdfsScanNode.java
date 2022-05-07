@@ -904,6 +904,7 @@ public class HdfsScanNode extends ScanNode {
         updateMaxScanRangeNumRows(
             tableNumRows, sumValues(totalBytesPerFs_), largestScanRangeBytes_);
       }
+      analyzer.incrementScanNumHdfsFiles(totalFilesPerFs_.getOrDefault("HDFS", 0L));
     }
   }
 

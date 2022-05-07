@@ -464,6 +464,8 @@ public class Analyzer {
     // require analysis (e.g. some literal expressions).
     private int numStmtExprs_ = 0;
 
+    private long scanNumHdfsFiles_ = 0;
+
     public GlobalState(StmtTableCache stmtTableCache, TQueryCtx queryCtx,
         AuthorizationFactory authzFactory) {
       this.stmtTableCache = stmtTableCache;
@@ -3060,6 +3062,17 @@ public class Analyzer {
     if (getNumStmtExprs() > statementExpressionLimit) {
       String errorStr = String.format("Exceeded the statement expression limit (%d)\n" +
           "Statement has %d expressions.", statementExpressionLimit, getNumStmtExprs());
+      throw new AnalysisException(errorStr);
+    }
+  }
+
+  public void incrementScanNumHdfsFiles(long increment) { globalState_.scanNumHdfsFiles_ += increment; }
+  public long getScanNumHdfsFiles() { return globalState_.scanNumHdfsFiles_; }
+  public void checkScanNumHdfsFilesLimit() throws AnalysisException {
+    long scanNumHdfsFilesLimit = getQueryOptions().getScan_num_hdfs_files_limit();
+    if (globalState_.scanNumHdfsFiles_ > scanNumHdfsFilesLimit) {
+      String errorStr = String.format("Exceeded the num of scan hdfs files limit (%d)\n" +
+              "Scanning has %d files.", scanNumHdfsFilesLimit, getScanNumHdfsFiles());
       throw new AnalysisException(errorStr);
     }
   }

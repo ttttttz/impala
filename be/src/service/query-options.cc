@@ -921,6 +921,8 @@ Status impala::SetQueryOption(const string& key, const string& value,
         int64_t scan_num_hdfs_files_limit;
         RETURN_IF_ERROR(ParseMemValue(
             value, "query scan num hdfs files limit", &scan_num_hdfs_files_limit));
+        query_options->__set_scan_num_hdfs_files_limit(scan_num_hdfs_files_limit);
+        break;
       }
       default:
         if (IsRemovedQueryOption(key)) {
